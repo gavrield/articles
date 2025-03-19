@@ -2,6 +2,7 @@ package com.newssummarizer.articles.controller;
 
 import com.newssummarizer.articles.repository.ArticleEntity;
 import com.newssummarizer.articles.service.ArticlesService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 @RestController
+@Setter
 public class ArticlesController {
 
     @Autowired
