@@ -5,7 +5,6 @@ import com.newssummarizer.articles.dto.ArticleDto;
 import com.newssummarizer.articles.mapper.ArticleMapper;
 import com.newssummarizer.articles.repository.ArticleEntity;
 import com.newssummarizer.articles.repository.ArticlesRepository;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

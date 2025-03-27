@@ -32,9 +32,7 @@ public class ArticlesService {
 
     public ArticleDto findById(BigInteger id) {
         Optional<ArticleEntity> article = repository.findById(id);
-        if (article.isPresent())
-            return mapper.toArticleDto(article.get());
-        else return null;
+        return article.map(mapper::toArticleDto).orElse(null);
     }
 
     public String findSummary(BigInteger id) {

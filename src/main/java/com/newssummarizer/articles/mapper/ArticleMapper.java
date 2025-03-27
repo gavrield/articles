@@ -3,7 +3,6 @@ package com.newssummarizer.articles.mapper;
 import com.newssummarizer.articles.dto.ArticleDto;
 import com.newssummarizer.articles.repository.ArticleEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
