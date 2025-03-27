@@ -6,7 +6,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SortField {
-    ID("_id");
+    ID("id"),
+    TITLE("title"),
+    QUERY("query"),
+    AUTHOR("author"),
+    PUBLISHED_DATE("publishedDate");
 
     private final String databaseFieldName;
 }
