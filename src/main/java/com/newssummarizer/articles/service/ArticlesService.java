@@ -1,6 +1,6 @@
 package com.newssummarizer.articles.service;
 
-import com.newssummarizer.articles.controller.PaginatedResponse;
+import com.newssummarizer.articles.dto.PaginatedResponse;
 import com.newssummarizer.articles.dto.ArticleDto;
 import com.newssummarizer.articles.mapper.ArticleMapper;
 import com.newssummarizer.articles.repository.ArticleEntity;

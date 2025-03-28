@@ -1,6 +1,6 @@
 package com.newssummarizer.articles.service;
 
-import com.newssummarizer.articles.controller.PaginatedResponse;
+import com.newssummarizer.articles.dto.PaginatedResponse;
 import com.newssummarizer.articles.dto.ArticleDto;
 import com.newssummarizer.articles.mapper.ArticleMapper;
 import com.newssummarizer.articles.repository.ArticleEntity;
@@ -58,10 +58,10 @@ class ArticlesServiceTest {
                 ),
                 Arguments.of(
                         1, 5,
-                        Arrays.asList(
+                        List.of(
                                 createArticleEntity(BigInteger.valueOf(3), "Title 3", "Summary 3")
                         ),
-                        Arrays.asList(
+                        List.of(
                                 createArticleDto(BigInteger.valueOf(3), "Title 3", "Summary 3")
                         ),
                         1, // Changed to expected page number
@@ -83,13 +83,13 @@ class ArticlesServiceTest {
 
     @ParameterizedTest
     @MethodSource("findAllByPageArguments")
-    void testFindAllByPage(int pageNumber, int pageSize, List<ArticleEntity> entities, List<ArticleDto> dtos, int expectedNumber, int expectedSize, long totalElements, String testName) {
+    void testFindAllByPage(int pageNumber, int pageSize, List<ArticleEntity> entities, List<ArticleDto> dtoList, int expectedNumber, int expectedSize, long totalElements, String testName) {
         // Arrange
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<ArticleEntity> articlePage = new PageImpl<>(entities, pageable, totalElements);
 
         when(repository.findAll(pageable)).thenReturn(articlePage);
-        when(mapper.toArticleDtoList(entities)).thenReturn(dtos);
+        when(mapper.toArticleDtoList(entities)).thenReturn(dtoList);
 
         // Act
         PaginatedResponse<ArticleDto> response = service.findAllByPage(pageable);
@@ -99,7 +99,7 @@ class ArticlesServiceTest {
         assertEquals(expectedNumber, response.number(), "Page number mismatch for: " + testName);
         assertEquals(expectedSize, response.size(), "Page size mismatch for: " + testName);
         assertEquals(totalElements, response.totalElements(), "Total elements mismatch for: " + testName);
-        assertEquals(dtos, response.content(), "Content mismatch for: " + testName);
+        assertEquals(dtoList, response.content(), "Content mismatch for: " + testName);
 
         verify(repository, times(1)).findAll(pageable);
         verify(mapper, times(1)).toArticleDtoList(entities);
@@ -127,9 +127,7 @@ class ArticlesServiceTest {
     void testFindById(BigInteger articleId, Optional<ArticleEntity> entityOptional, ArticleDto expectedDto, String testName) {
         // Arrange
         when(repository.findById(articleId)).thenReturn(entityOptional);
-        if (entityOptional.isPresent()) {
-            when(mapper.toArticleDto(entityOptional.get())).thenReturn(expectedDto);
-        }
+        entityOptional.ifPresent(entity -> when(mapper.toArticleDto(entity)).thenReturn(expectedDto));
 
         // Act
         ArticleDto result = service.findById(articleId);

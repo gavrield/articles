@@ -2,20 +2,19 @@ package com.newssummarizer.articles.controller;
 
 
 import com.newssummarizer.articles.dto.ArticleDto;
+import com.newssummarizer.articles.dto.PaginatedResponse;
 import com.newssummarizer.articles.service.ArticlesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/articles")
 public class ArticlesController {
 
     private final ArticlesService service;
@@ -26,7 +25,7 @@ public class ArticlesController {
     private static final String DEFAULT_DIRECTION = "DESC";
 
 
-    @GetMapping(path = "/api/v1/articles")
+    @GetMapping(path = "/")
     public PaginatedResponse<ArticleDto> findAllByPage(@RequestParam(defaultValue = "" + DEFAULT_PAGE) int page,
                                                        @RequestParam(defaultValue = "" + DEFAULT_PAGE_SIZE) int sizePerPage,
                                                        @RequestParam(defaultValue = DEFAULT_SORT_FIELD) SortField sortField,
@@ -36,12 +35,12 @@ public class ArticlesController {
 
     }
 
-    @GetMapping(path = "/api/v1/articles/{id}")
+    @GetMapping(path = "/{id}")
     public ArticleDto findById(@PathVariable BigInteger id) {
         return service.findById(id);
     }
 
-    @GetMapping(path = "/api/v1/articles/{id}/summary")
+    @GetMapping(path = "/{id}/summary")
     public String findSummary(@PathVariable BigInteger id) {
         return service.findSummary(id);
     }

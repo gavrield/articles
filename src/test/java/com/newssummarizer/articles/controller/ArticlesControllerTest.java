@@ -1,6 +1,7 @@
 package com.newssummarizer.articles.controller;
 
 import com.newssummarizer.articles.dto.ArticleDto;
+import com.newssummarizer.articles.dto.PaginatedResponse;
 import com.newssummarizer.articles.service.ArticlesService;
 
 import org.junit.jupiter.params.ParameterizedTest;
@@ -74,22 +75,21 @@ class ArticlesControllerTest {
         );
 
         int start = page * sizePerPage;
-        int end = Math.min(start + sizePerPage, (int) allArticleDtos.size());
+        int end = Math.min(start + sizePerPage, allArticleDtos.size());
         List<ArticleDto> content = new ArrayList<>();
 
         if (start < allArticleDtos.size()) {
-            for (int i = start; i < end && i < allArticleDtos.size(); i++) {
+            for (int i = start; i < end ; i++) {
                 content.add(allArticleDtos.get(i));
             }
         }
 
-        PaginatedResponse<ArticleDto> paginatedResponse = new PaginatedResponse<>(
+        return new PaginatedResponse<>(
                 content,
                 page,
                 sizePerPage,
                 totalElements
         );
-        return paginatedResponse;
     }
 
     @ParameterizedTest

@@ -1,4 +1,4 @@
-package com.newssummarizer.articles.controller;
+package com.newssummarizer.articles.dto;
 
 
 import java.util.List;
