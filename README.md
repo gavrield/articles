@@ -117,7 +117,8 @@ GET /articles
 **Parameters**:
 - `page` (default: 0)
 - `size` (default: 5)
-- `sort` (field,direction)
+- `sortField` (default: ID)
+- `sortDirection` (default: DESC)
 
 **Response**:
 ```json
@@ -131,8 +132,9 @@ GET /articles
       "summary": "Article summary"
     }
   ],
-  "page": 0,
-  "totalPages": 10
+  "number": 0,
+  "size": 1,
+  "totalElements": 10
 }
 ```
 
